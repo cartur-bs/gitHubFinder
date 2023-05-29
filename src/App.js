@@ -1,8 +1,28 @@
 
+
+import { useState } from 'react';
 import './App.css';
 
 function App() {
 
+  const [user, setUser] = useState('');
+  const [userName, setUserName] = useState('');
+
+
+
+  const handleUser = () => {
+    fetch(`https://api.github.com/users`)
+      .then(async res => {
+        const data = await res.json();
+        console.log(data);
+
+        data.map(i => {
+          setUserName(i.login);
+        })
+        console.log(userName)
+      })
+
+  }
 
 
   return (
@@ -19,19 +39,19 @@ function App() {
             <input
               type="text"
               placeholder="Digite um username"
+              onChange={(e) => setUser(e.target.value)}
             />
-            <button >Buscar</button>
+            <button onClick={handleUser}>Buscar</button>
           </div>
           <div className="content">
             <div>
-              <img src='https://github/users/cartur-bs.png' alt="Perfil" />
+              <img src="*" alt="" />
               <h1>teste</h1>
               <p>teste</p>
             </div>
           </div>
         </main>
       </div>
-
     </div>
   );
 }
