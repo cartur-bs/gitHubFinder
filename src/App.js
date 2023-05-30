@@ -1,53 +1,59 @@
 
-
 import { useState } from 'react';
 import './App.css';
 
 function App() {
 
-  const [user, setUser] = useState('');
   const [userName, setUserName] = useState('');
-
+  const [name, setName] = useState('Nome');
+  const [avatar, setAvatar] = useState('https://encurtador.com.br/hmCPU');
+  const [bio, setBio] = useState('biografia');
 
 
   const handleUser = () => {
-    fetch(`https://api.github.com/users`)
+    setName('Carregando...');
+    setBio('Carregando...');
+    setAvatar('https://encurtador.com.br/hmCPU');
+    fetch(`https://api.github.com/users/${userName}`)
       .then(async res => {
         const data = await res.json();
-        console.log(data);
-
-        data.map(i => {
-          setUserName(i.login);
-        })
-        console.log(userName)
+        setAvatar(data.avatar_url);
+        setBio(data.bio);
+        setName(data.name);
       })
-
   }
 
+  const handleLimpaUser = () => {
+    setAvatar('https://encurtador.com.br/hmCPU');
+    setBio('biografia');
+    setName('Nome');
+  } 
 
   return (
     <div className="App">
       <div className="container">
-        <header className="header-top">
-          <ul>
-            <li>Jovem Programador</li>
-          </ul>
-        </header>
         <main>
           <div className="form">
-            <h1>Buscador de Perfis do GITHUB</h1>
-            <input
-              type="text"
-              placeholder="Digite um username"
-              onChange={(e) => setUser(e.target.value)}
-            />
-            <button onClick={handleUser}>Buscar</button>
+            <h1>Qual programador você deseja encontrar?</h1>
+            <div className='campoDeBusca'>
+              <input
+                type="text"
+                placeholder="Digite um username"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <div className="divBotoes">
+                <button onClick={handleUser}>Buscar</button>
+                <button onClick={handleLimpaUser}>Limpar</button>
+              </div>
+
+            </div>
+
           </div>
           <div className="content">
             <div>
-              <img src="*" alt="" />
-              <h1>teste</h1>
-              <p>teste</p>
+              <img src={avatar} alt="" />
+              <h1>{name}</h1>
+              <p>{bio}</p>
             </div>
           </div>
         </main>
