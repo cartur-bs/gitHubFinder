@@ -1,1 +1,1 @@
-https://cartur-bs.github.io/gitHubFinder/
+# gitHubFinder é um projeto feito com ReactJS que consome a API do Github, permitindo que o usuário da página possa acessar informações como nome, foto de perfil e biografia de um usuário do Github apenas fornecendo seu nome de usuário. Para a confecção deste, foi usado o método fetch em JavaScript a fim de manipular os dados vindos da API e fornecer determinados dados no client side.
